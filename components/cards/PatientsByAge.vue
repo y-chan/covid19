@@ -7,9 +7,7 @@
       :chart-data="ageGraph"
       :date="age.last_update"
       :unit="'人'"
-      :url="
-       'http://open-data.pref.hyogo.lg.jp/?page_id=141'
-      "
+      :url="'http://open-data.pref.hyogo.lg.jp/?page_id=141'"
       :show-button="false"
     />
   </v-col>

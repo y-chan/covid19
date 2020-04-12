@@ -10,9 +10,7 @@
       :labels="inspectionsLabels"
       :unit="$t('件.tested')"
       :data-labels="inspectionsDataLabels"
-      :url="
-       'http://open-data.pref.hyogo.lg.jp/?page_id=141'
-      "
+      :url="'http://open-data.pref.hyogo.lg.jp/?page_id=141'"
     >
       <!-- 件.tested = 検査数 -->
       <!--<template v-if="$i18n.locale !== 'ja-basic'" v-slot:additionalNotes>

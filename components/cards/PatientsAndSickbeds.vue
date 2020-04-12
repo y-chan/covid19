@@ -7,9 +7,7 @@
       :date="sickbedsSummary.last_update"
       :unit="$t('床')"
       :info="$t('総病床数')"
-      :url="
-        'http://open-data.pref.hyogo.lg.jp/?page_id=141'
-      "
+      :url="'http://open-data.pref.hyogo.lg.jp/?page_id=141'"
     />
   </v-col>
 </template>

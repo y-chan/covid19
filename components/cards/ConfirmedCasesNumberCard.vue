@@ -7,9 +7,7 @@
       :chart-data="patientsGraph"
       :date="patientsSummary.last_update"
       :unit="$t('人')"
-      :url="
-        'http://open-data.pref.hyogo.lg.jp/?page_id=141'
-      "
+      :url="'http://open-data.pref.hyogo.lg.jp/?page_id=141'"
     />
   </v-col>
 </template>

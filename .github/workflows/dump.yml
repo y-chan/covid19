@@ -5,10 +5,10 @@ on:
       - context_dump
 jobs:
   dump:
+    if: github.event.commits[0].message != 'test'
     runs-on: ubuntu-latest
     steps:
       - name: dump context
-        if: github.event.commits[0].message != 'Update locales-hyogo/ja.json'
         run: echo '${{ toJSON(github) }}'
       - name: test
         run: echo '${{ github.event.commits[0].message }}'

@@ -49,6 +49,8 @@
       <!--<patients-and-sickbeds />-->
       <!-- 都庁来庁者数の推移 -->
       <!--<agency-card />-->
+      <!-- 現在患者数 -->
+      <current-patients-card />
     </card-row>
     <v-divider />
   </div>
@@ -77,6 +79,7 @@ import AgencyCard from '@/components/cards/AgencyCard.vue' */
 import PatientsByAge from '@/components/cards/PatientsByAge.vue'
 import PatientsByClusters from '@/components/cards/PatientsByClusters.vue'
 // import PatientsAndSickbeds from '@/components/cards/PatientsAndSickbeds.vue'
+import CurrentPatientsCard from '@/components/cards/CurrentPatientsCard.vue'
 import { convertISO8601FormatToDatetime } from '@/utils/formatDate'
 
 export default Vue.extend({
@@ -97,8 +100,9 @@ export default Vue.extend({
     MetroCard,
     AgencyCard, */
     PatientsByAge,
-    PatientsByClusters
+    PatientsByClusters,
     // PatientsAndSickbeds
+    CurrentPatientsCard
   },
   data() {
     const updatedTimeStr = convertISO8601FormatToDatetime(

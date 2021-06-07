@@ -39,10 +39,20 @@
             </tr>
           </tbody>
         </template>
-        <!--<template v-slot:additionalDescription>
+        <template v-slot:additionalDescription>
           <span>{{ $t('（注）') }}</span>
           <ul>
             <li>
+              {{
+                $t('以下の番号が欠番となっている。(計: {num})', {
+                  num: excludePatients.length,
+                })
+              }}
+            </li>
+            <li>
+              {{ excludePatients.join(', ') }}
+            </li>
+            <!--<li>
               {{ $t('「確定日」は検査により陽性であることを医師が確認した日') }}
             </li>
             <li>
@@ -58,9 +68,9 @@
                   '「退院」は、保健所から報告があり、確認ができているものを反映（死亡退院を含む）'
                 )
               }}
-            </li>
+            </li>-->
           </ul>
-        </template>-->
+        </template>
       </data-table>
     </client-only>
   </v-col>
@@ -96,9 +106,14 @@ type Data = {
   itemsPerPage: 15 | 30 | 50 | 100 | 200 | 300 | 500 | 1000
   // endCursor: string
   patientsData: DataType[]
+  excludePatients: number[]
 }
 type Methods = {
-  fetchOpenAPI: () => Promise<{ patientsData: DataType; lastUpdate: string }>
+  fetchOpenAPI: () => Promise<{
+    patientsData: DataType
+    lastUpdate: string
+    excludePatients: number[]
+  }>
   fetchIfNoCache: () => void
   onChangeItemsPerPage: (itemsPerPage: Data['itemsPerPage']) => void
   onChangePage: (page: number) => void
@@ -140,6 +155,7 @@ const options: ThisTypedComponentOptionsWithRecordProps<
       itemsPerPage: 15,
       // endCursor: '',
       patientsData: [],
+      excludePatients: [],
     }
   },
   computed: {
@@ -154,10 +170,15 @@ const options: ThisTypedComponentOptionsWithRecordProps<
     },
   },
   async fetch() {
-    const { patientsData, lastUpdate } = await this.fetchOpenAPI()
+    const {
+      patientsData,
+      lastUpdate,
+      excludePatients,
+    } = await this.fetchOpenAPI()
     this.patientsData = this.patientsData.concat(patientsData)
     // this.endCursor = metaData.endCursor
     this.date = lastUpdate
+    this.excludePatients = excludePatients
     this.fetchIfNoCache()
   },
   fetchOnServer: false, // i18nによる日付の変換ができないのでサーバーでは無効化
@@ -171,6 +192,7 @@ const options: ThisTypedComponentOptionsWithRecordProps<
         .then((data) => ({
           patientsData: data.data.reverse(),
           lastUpdate: data.last_update,
+          excludePatients: data.exclude_patients,
         }))
         .catch((error) => {
           throw new Error(error.toString())
